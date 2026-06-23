@@ -24,7 +24,7 @@ export function ClassicCentered({ mode }: { mode: AuthMode }) {
       <div className="w-full max-w-[400px]">
         <div className="mb-8 flex flex-col items-center gap-4 text-center">
           <BrandMark />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-5xl text-muted-foreground">
             {isSignIn
               ? "Sign in to your account to continue"
               : "Create an account to get started"}
