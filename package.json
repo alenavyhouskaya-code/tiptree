@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:storybook && next build",
+    "build:storybook": "STORYBOOK_BASE_PATH=/storybook/ storybook build -o public/storybook",
     "start": "next start",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
