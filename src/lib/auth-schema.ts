@@ -3,7 +3,7 @@ import { z } from "zod"
 export const signInSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-  remember: z.boolean().default(false),
+  remember: z.boolean(),
 })
 
 export const signUpSchema = z.object({
