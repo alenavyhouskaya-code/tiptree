@@ -14,7 +14,6 @@ export function VariantSwitcher() {
   const pathname = usePathname() ?? ""
   const isSignUp = pathname.startsWith("/sign-up")
   const base = isSignUp ? "/sign-up" : "/sign-in"
-  const mode = isSignUp ? "Sign up" : "Sign in"
   const active =
     TABS.find((t) => pathname.includes(`/${t.slug}`))?.slug ?? "classic"
 
@@ -29,29 +28,24 @@ export function VariantSwitcher() {
           Back to prototypes
         </Link>
 
-        <div className="flex items-center gap-2">
-          <span className="hidden text-xs text-muted-foreground sm:inline">
-            {mode}
-          </span>
-          <div className="flex items-center gap-0.5 rounded-md border border-border bg-card p-0.5">
-            {TABS.map((t) => {
-              const isActive = t.slug === active
-              return (
-                <Link
-                  key={t.slug}
-                  href={`${base}/${t.slug}`}
-                  className={[
-                    "rounded-[5px] px-3 py-1 text-xs transition-colors",
-                    isActive
-                      ? "bg-secondary text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  ].join(" ")}
-                >
-                  {t.label}
-                </Link>
-              )
-            })}
-          </div>
+        <div className="flex items-center gap-0.5 rounded-md border border-border bg-card p-0.5">
+          {TABS.map((t) => {
+            const isActive = t.slug === active
+            return (
+              <Link
+                key={t.slug}
+                href={`${base}/${t.slug}`}
+                className={[
+                  "rounded-[5px] px-3 py-1 text-xs transition-colors",
+                  isActive
+                    ? "bg-secondary text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                ].join(" ")}
+              >
+                {t.label}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>
