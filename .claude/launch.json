@@ -15,9 +15,10 @@
       "runtimeExecutable": "/bin/bash",
       "runtimeArgs": [
         "-c",
-        "export PATH=\"/opt/homebrew/bin:$PATH\" && exec npm run storybook"
+        "export PATH=\"/opt/homebrew/bin:$PATH\" && exec npx storybook dev -p $PORT --no-open"
       ],
-      "port": 6006
+      "port": 6006,
+      "autoPort": true
     }
   ]
 }

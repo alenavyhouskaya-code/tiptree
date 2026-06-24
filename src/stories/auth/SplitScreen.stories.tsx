@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { SplitScreen } from "@/components/auth/variants/SplitScreen"
 
 const meta: Meta<typeof SplitScreen> = {
-  title: "Auth/02 — Split Screen",
+  title: "Page examples/02 — Split Screen",
   component: SplitScreen,
   parameters: { layout: "fullscreen" },
 }

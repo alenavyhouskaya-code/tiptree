@@ -95,7 +95,7 @@ function DemoForm() {
 }
 
 const meta: Meta<typeof DemoForm> = {
-  title: "UI/Form",
+  title: "Basics/Form",
   component: DemoForm,
 }
 

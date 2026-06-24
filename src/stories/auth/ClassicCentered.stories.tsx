@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { ClassicCentered } from "@/components/auth/variants/ClassicCentered"
 
 const meta: Meta<typeof ClassicCentered> = {
-  title: "Auth/01 — Classic Centered",
+  title: "Page examples/01 — Classic Centered",
   component: ClassicCentered,
   parameters: { layout: "fullscreen" },
 }
