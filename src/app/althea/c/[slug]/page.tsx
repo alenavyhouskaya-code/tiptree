@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { use, useEffect, useRef, useState } from "react"
+import type { LucideIcon } from "lucide-react"
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -269,7 +270,7 @@ function ThoughtTime({ label }: { label: string }) {
 }
 
 type CoTStep = {
-  icon: React.ComponentType<{ className?: string }>
+  icon: LucideIcon
   label: string
   body: string
   chips?: string[]
