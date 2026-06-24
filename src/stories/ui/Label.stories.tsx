@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 const meta: Meta<typeof Label> = {
-  title: "UI/Label",
+  title: "Basics/Label",
   component: Label,
   args: { children: "Email" },
 }

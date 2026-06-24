@@ -15,6 +15,11 @@ const preview: Preview = {
       values: [{ name: 'white', value: '#ffffff' }],
     },
     a11y: { test: 'todo' },
+    options: {
+      storySort: {
+        order: ['Page examples', 'Basics', 'AI components'],
+      },
+    },
   },
 }
 

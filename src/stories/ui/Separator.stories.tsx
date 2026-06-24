@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Separator } from "@/components/ui/separator"
 
 const meta: Meta<typeof Separator> = {
-  title: "UI/Separator",
+  title: "Basics/Separator",
   component: Separator,
 }
 
