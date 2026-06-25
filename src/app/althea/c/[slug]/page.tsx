@@ -284,6 +284,30 @@ function ChainOfThought({
   steps: CoTStep[]
 }) {
   const [open, setOpen] = useState(true)
+  // How many steps have appeared (1..steps.length).
+  const [shown, setShown] = useState(1)
+  // Index of the step currently being processed; equals steps.length when all done.
+  const [activeIndex, setActiveIndex] = useState(0)
+  const allDone = activeIndex >= steps.length
+
+  useEffect(() => {
+    const STEP_MS = 900
+    const timers: ReturnType<typeof setTimeout>[] = []
+    for (let i = 1; i < steps.length; i++) {
+      timers.push(
+        setTimeout(() => {
+          setShown(i + 1)
+          setActiveIndex(i)
+        }, i * STEP_MS),
+      )
+    }
+    timers.push(
+      setTimeout(() => setActiveIndex(steps.length), steps.length * STEP_MS),
+    )
+    return () => timers.forEach(clearTimeout)
+  }, [steps.length])
+
+  const visibleSteps = steps.slice(0, shown)
 
   return (
     <div className="rounded-xl border border-white/[0.06] bg-white/[0.015]">
@@ -292,12 +316,15 @@ function ChainOfThought({
         className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-white/[0.03]"
       >
         <Brain
-          className="h-3.5 w-3.5"
+          className={[
+            "h-3.5 w-3.5",
+            allDone ? "" : "animate-pulse",
+          ].join(" ")}
           style={{ color: SAGE }}
           aria-hidden="true"
         />
         <span className="text-[12px] uppercase tracking-wider text-neutral-400">
-          Thought process
+          {allDone ? "Thought process" : "Thinking…"}
         </span>
         <span className="text-[12px] text-neutral-500">· {summary}</span>
         <ChevronRight
@@ -310,18 +337,31 @@ function ChainOfThought({
 
       {open && (
         <ol className="space-y-4 px-4 pb-4 pt-1">
-          {steps.map((step, i) => {
+          {visibleSteps.map((step, i) => {
             const Icon = step.icon
             const isLast = i === steps.length - 1
+            const isActive = i === activeIndex
+            const isDone = i < activeIndex
             return (
-              <li key={i} className="flex gap-3">
+              <li
+                key={i}
+                className="flex gap-3 fade-in slide-in-from-top-1 animate-in duration-300"
+              >
                 <div className="relative flex flex-col items-center">
                   <span
-                    className="flex h-6 w-6 items-center justify-center rounded-full ring-1 ring-white/[0.08]"
+                    className={[
+                      "flex h-6 w-6 items-center justify-center rounded-full ring-1 ring-white/[0.08] transition-shadow duration-300",
+                      isActive
+                        ? "shadow-[0_0_0_4px_rgba(126,163,165,0.12)]"
+                        : "",
+                    ].join(" ")}
                     style={{ background: "rgba(126,163,165,0.10)" }}
                   >
                     <Icon
-                      className="h-3.5 w-3.5"
+                      className={[
+                        "h-3.5 w-3.5",
+                        isActive ? "animate-pulse" : "",
+                      ].join(" ")}
                       style={{ color: SAGE }}
                       aria-hidden="true"
                     />
@@ -333,9 +373,9 @@ function ChainOfThought({
                 <div className="flex-1 pb-1">
                   <div className="flex items-center gap-2">
                     <p className="text-[13px] text-neutral-100">{step.label}</p>
-                    {isLast ? null : (
+                    {isDone && (
                       <Check
-                        className="h-3 w-3 text-neutral-500"
+                        className="fade-in zoom-in-75 h-3 w-3 animate-in text-neutral-500 duration-200"
                         aria-hidden="true"
                       />
                     )}
@@ -345,7 +385,7 @@ function ChainOfThought({
                     dangerouslySetInnerHTML={{ __html: step.body }}
                   />
                   {step.chips && (
-                    <div className="mt-2 flex flex-wrap gap-1.5">
+                    <div className="fade-in mt-2 flex animate-in flex-wrap gap-1.5 duration-300">
                       {step.chips.map((chip) => (
                         <span
                           key={chip}
